@@ -3,9 +3,11 @@ public class Program
 {
     public static void Main(string[] args)
     {
+       
+        var enteredCommands = args[0];
         Console.WriteLine("Command Help");
 
-        Console.WriteLine("You entered 'kubectl'");
+        Console.WriteLine($"You entered '{enteredCommands}'");
         var commandRef = new CommandReference
         {
             CommandName = "kubectl",
