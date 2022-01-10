@@ -5,32 +5,32 @@ var commandRef = new CommandReference
 {
     CommandName = "kubectl",
     CommandDescription = "kubectl is for working with kubernetes",
-    Examples = new List<CommandReference>
+    Examples = new List<CommandExample>
     {
-        new CommandReference { 
-            CommandName = @"kubectl apply -f .\deployment.yaml",
-            CommandDescription ="This will apply the deployment file to the kubernetes API)"
+        new CommandExample
+        {
+            Command = @"kubectl apply -f .\deployment.yaml",
+            Description = "Apply this to the kubernetes api",
+
+        },
+        new CommandExample
+        {
+            Command = @"kubectl get namespaces",
+            Description = "List all the namespaces in the current cluster"
         }
     }
-    
+
 };
-//Console.WriteLine("kubectl is for working with kubernetes");
-//Console.WriteLine("Here are some examples of commands using kubectl");
+Console.WriteLine(commandRef.CommandName);
+Console.WriteLine(commandRef.CommandDescription);
 
-//Console.WriteLine(); // blank line.
+Console.WriteLine(); // blank line.
 
-//var example1 = @"Command:
-//kubectl apply -f .\deployment.yaml
-
-//(this will apply the deployment file to the kubernetes API)";
-//var example2 = @"Command:
-//kubectl get namespaces
-
-//(this will list all the namespaces in your current cluster)";
-
-//Console.WriteLine(example1);
-//Console.WriteLine(example2);
-
+foreach(var example in commandRef.Examples)
+{
+    Console.WriteLine(example.Command);
+    Console.WriteLine(example.Description);
+}
 // Step 1 - create the data structures.
 class CommandReference
 {
