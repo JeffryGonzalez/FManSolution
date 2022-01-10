@@ -1,11 +1,16 @@
-﻿Console.WriteLine("Command Help");
-
-Console.WriteLine("You entered 'kubectl'");
-var commandRef = new CommandReference
+﻿
+public class Program
 {
-    CommandName = "kubectl",
-    CommandDescription = "kubectl is for working with kubernetes",
-    Examples = new List<CommandExample>
+    public static void Main(string[] args)
+    {
+        Console.WriteLine("Command Help");
+
+        Console.WriteLine("You entered 'kubectl'");
+        var commandRef = new CommandReference
+        {
+            CommandName = "kubectl",
+            CommandDescription = "kubectl is for working with kubernetes",
+            Examples = new List<CommandExample>
     {
         new CommandExample
         {
@@ -20,17 +25,20 @@ var commandRef = new CommandReference
         }
     }
 
-};
-Console.WriteLine(commandRef.CommandName);
-Console.WriteLine(commandRef.CommandDescription);
+        };
+        Console.WriteLine(commandRef.CommandName);
+        Console.WriteLine(commandRef.CommandDescription);
 
-Console.WriteLine(); // blank line.
+        Console.WriteLine(); // blank line.
 
-foreach(var example in commandRef.Examples)
-{
-    Console.WriteLine(example.Command);
-    Console.WriteLine(example.Description);
+        foreach (var example in commandRef.Examples)
+        {
+            Console.WriteLine(example.Command);
+            Console.WriteLine(example.Description);
+        }
+    }
 }
+
 // Step 1 - create the data structures.
 class CommandReference
 {
