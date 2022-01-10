@@ -1,48 +1,56 @@
 ﻿
+using YamlDotNet.Serialization;
+using YamlDotNet.Serialization.NamingConventions;
+
 public class Program
 {
     public static void Main(string[] args)
     {
+
+        var homeFolder = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+        var fmanDirectory = Path.Combine(homeFolder, ".fman");
+
+        var filePath = Path.Combine(fmanDirectory, "commands.yaml");
+
+        var deserializer = new DeserializerBuilder()
+            .WithNamingConvention(new UnderscoredNamingConvention())
+            .Build();
+
+        var fileContent = File.ReadAllText(filePath);
+        var commandList = deserializer.Deserialize<CommandsList>(fileContent);
        
-        var enteredCommands = args[0];
-        Console.WriteLine("Command Help");
 
-        Console.WriteLine($"You entered '{enteredCommands}'");
-        var commandRef = new CommandReference
+        foreach(var command in commandList.Commands)
         {
-            Name = "kubectl",
-            Description = "kubectl is for working with kubernetes",
-            Examples = new List<CommandExample>
-    {
-        new CommandExample
-        {
-            Command = @"kubectl apply -f .\deployment.yaml",
-            Description = "Apply this to the kubernetes api",
-
-        },
-        new CommandExample
-        {
-            Command = @"kubectl get namespaces",
-            Description = "List all the namespaces in the current cluster"
+            Console.WriteLine(command.Name);
+            Console.WriteLine(command.Description);
+            foreach(var example in command.Examples)
+            {
+                Console.WriteLine("\t" + example.Command);
+                Console.WriteLine("\t" + example.Description);
+            }
         }
-    }
+        //var enteredCommands = args[0];
+        //Console.WriteLine("Command Help");
 
-        };
-        Console.WriteLine(commandRef.Name);
-        Console.WriteLine(commandRef.Description);
+        //Console.WriteLine($"You entered '{enteredCommands}'");
 
-        Console.WriteLine(); // blank line.
 
-        foreach (var example in commandRef.Examples)
-        {
-            Console.WriteLine(example.Command);
-            Console.WriteLine(example.Description);
-        }
+        //Console.WriteLine(commandRef.Name);
+        //Console.WriteLine(commandRef.Description);
+
+        //Console.WriteLine(); // blank line.
+
+        //foreach (var example in commandRef.Examples)
+        //{
+        //    Console.WriteLine(example.Command);
+        //    Console.WriteLine(example.Description);
+        //}
     }
 }
 
 // Step 1 - create the data structures.
-class CommandReference
+class Commands
 {
     public string Name { get; set; } = "";
     public string Description { get; set; } = "";
@@ -54,4 +62,9 @@ class CommandExample
 {
     public string Command { get; set; } = "";
     public string Description { get; set; } = "";
+}
+class CommandsList
+{
+    public float Version { get; set; }
+    public List<Commands> Commands{get; set; } = new List<Commands>();
 }
