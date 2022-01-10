@@ -10,8 +10,8 @@ public class Program
         Console.WriteLine($"You entered '{enteredCommands}'");
         var commandRef = new CommandReference
         {
-            CommandName = "kubectl",
-            CommandDescription = "kubectl is for working with kubernetes",
+            Name = "kubectl",
+            Description = "kubectl is for working with kubernetes",
             Examples = new List<CommandExample>
     {
         new CommandExample
@@ -28,8 +28,8 @@ public class Program
     }
 
         };
-        Console.WriteLine(commandRef.CommandName);
-        Console.WriteLine(commandRef.CommandDescription);
+        Console.WriteLine(commandRef.Name);
+        Console.WriteLine(commandRef.Description);
 
         Console.WriteLine(); // blank line.
 
@@ -44,8 +44,8 @@ public class Program
 // Step 1 - create the data structures.
 class CommandReference
 {
-    public string CommandName { get; set; } = "";
-    public string CommandDescription { get; set; } = "";
+    public string Name { get; set; } = "";
+    public string Description { get; set; } = "";
 
     public List<CommandExample> Examples { get; set; } = new List<CommandExample>();
 }
